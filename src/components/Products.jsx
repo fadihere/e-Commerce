@@ -31,12 +31,12 @@ const Products = () => {
       }
       console.log(data);
       return () => {
-        componentMounted.current = false;
+        componentMounted = false;
       };
     };
 
     getProducts();
-  }, [componentMounted, data]);
+  }, []);
 
   const Loading = () => {
     return (
