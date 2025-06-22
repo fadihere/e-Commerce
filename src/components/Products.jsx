@@ -29,7 +29,7 @@ const Products = () => {
         setFilter(await response.json());
         setLoading(false);
       }
-
+      console.log(data);
       return () => {
         componentMounted = false;
       };
@@ -112,44 +112,53 @@ const Products = () => {
             <div
               id={product.id}
               key={product.id}
-              className="col-md-4 col-sm-6 col-xs-8 col-12 mb-4"
+              className="col-md-6 col-lg-4 col-sm-12 col-xs-8 col-12 mb-4"
             >
-              <div className="card text-center h-100" key={product.id}>
+              <div
+                className="card text-center h-100 bg-light rounded-4 p-2"
+                key={product.id}
+              >
                 <img
-                  className="card-img-top p-3"
+                  className="card-img-top p-3 object-fit-contain bg-white rounded-3"
                   src={product.image}
                   alt="Card"
-                  height={300}
+                  height={250}
                 />
-                <div className="card-body">
-                  <h5 className="card-title">
-                    {product.title.substring(0, 12)}...
-                  </h5>
-                  <p className="card-text">
-                    {product.description.substring(0, 90)}...
-                  </p>
-                </div>
-                <ul className="list-group list-group-flush">
-                  <li className="list-group-item lead">$ {product.price}</li>
-                  {/* <li className="list-group-item">Dapibus ac facilisis in</li>
-                    <li className="list-group-item">Vestibulum at eros</li> */}
-                </ul>
-                <div className="card-body">
-                  <Link
-                    to={"/product/" + product.id}
-                    className="btn btn-dark m-1"
-                  >
-                    Buy Now
-                  </Link>
-                  <button
-                    className="btn btn-dark m-1"
-                    onClick={() => {
-                      toast.success("Added to cart");
-                      addProduct(product);
-                    }}
-                  >
-                    Add to Cart
-                  </button>
+                <div className="card-body d-flex flex-column justify-content-between">
+                  <div>
+                    <h5 className="card-title text-start fs-4">
+                      {product.title.substring(0, 50)}
+                    </h5>
+                    <p className="card-text text-secondary text-start fw-lighter fs-6 mb-0">
+                      {product.description.substring(0, 90)}...
+                    </p>
+                    <div>
+                      <p className="lead text-start mb-0 fs-6">
+                        {product.rating && product.rating.rate}{" "}
+                        <i className="fa fa-star"></i>
+                      </p>
+                      <p className="text-start fs-4 mt-0">${product.price}</p>
+                    </div>
+                  </div>
+
+                  <div className="d-flex flex-column flex-sm-row gap-2 mt-3">
+                    <Link
+                      to={`/product/${product.id}`}
+                      className="btn btn-dark w-100 w-sm-50 rounded-4"
+                    >
+                      Buy Now
+                    </Link>
+
+                    <button
+                      className="btn btn-outline-secondary text-dark w-100 w-sm-50 rounded-4"
+                      onClick={() => {
+                        toast.success("Added to cart");
+                        addProduct(product);
+                      }}
+                    >
+                      <i className="fa fa-shopping-cart me-1"></i> Add to Cart
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
